@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router";
 import { IoChatbubbles, IoMoon } from "react-icons/io5";
+import Button from "../common/button/Button.tsx";
 
 const HeaderContainer = styled.header`
     height: 64px;
@@ -42,7 +43,7 @@ const IconButton = styled.button`
     justify-content: center;
     align-items: center;
     padding: 8px;
-    border-radius: 8px;
+    border-radius: 50%;
     color: ${props => props.theme.color.text.default};
     transition: all 0.5s;
 
@@ -64,22 +65,9 @@ const TextButton = styled.button`
     }
 `;
 
-const PrimaryButton = styled.button`
-    font-size: 14px;
-    font-weight: 600;
-    color: #ffffff;
-    background-color: ${props => props.theme.color.primary};
-    padding: 8px 16px;
-    border-radius: 6px;
-    transition: all 0.5s;
-
-    &:hover {
-        filter: brightness(0.8);
-    }
-`;
-
 function MainHeader() {
     const navigate = useNavigate();
+
     return (
         <HeaderContainer>
             <HeaderInner>
@@ -94,9 +82,7 @@ function MainHeader() {
                     <TextButton as={Link} to={"/auth/login"}>
                         로그인
                     </TextButton>
-                    <PrimaryButton as={Link} to={"/auth/signup"}>
-                        회원가입
-                    </PrimaryButton>
+                    <Button color={"error"}>회원가입</Button>
                 </NavGroup>
             </HeaderInner>
         </HeaderContainer>
