@@ -38,33 +38,6 @@ const NavGroup = styled.nav`
     gap: 16px;
 `;
 
-const IconButton = styled.button`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 8px;
-    border-radius: 50%;
-    color: ${props => props.theme.color.text.default};
-    transition: all 0.5s;
-
-    &:hover {
-        background-color: ${props => props.theme.color.background.default};
-    }
-`;
-
-const TextButton = styled.button`
-    font-size: 14px;
-    font-weight: 600;
-    color: ${props => props.theme.color.text.default};
-    padding: 8px 12px;
-    border-radius: 6px;
-    transition: all 0.5s;
-
-    &:hover {
-        background-color: ${props => props.theme.color.background.default};
-    }
-`;
-
 function MainHeader() {
     const navigate = useNavigate();
 
