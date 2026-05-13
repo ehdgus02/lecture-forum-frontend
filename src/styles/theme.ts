@@ -1,6 +1,6 @@
 import type { DefaultTheme } from "styled-components";
 
-export const LightTheme: DefaultTheme = {
+export const lightTheme: DefaultTheme = {
     color: {
         background: {
             default: "#F3F4F6",
