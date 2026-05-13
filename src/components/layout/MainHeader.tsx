@@ -1,5 +1,5 @@
-import styled, { useTheme } from "styled-components";
-import { Link, useNavigate } from "react-router";
+import styled from "styled-components";
+import { Link } from "react-router";
 import { IoChatbubbles, IoMoon, IoSunny } from "react-icons/io5";
 import Button from "../common/button/Button.tsx";
 import { useContext } from "react";
