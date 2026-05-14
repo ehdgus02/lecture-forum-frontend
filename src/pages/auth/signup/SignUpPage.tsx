@@ -61,11 +61,13 @@ function SignUpPage() {
             });
 
             // response도 http 메세지 내용이 기록되기 때문에 string을 JSON으로 파싱해야 함
+            // response = { ok: boolean, message: string }
+            // response.json()을 하게 되면 백엔드에서 응답한 내용인 response.message를 JSON으로 파싱
             const result = await response.json();
 
             // result.ok 프로퍼티 안에 response 상태 코드가 200번대라면 true, 아니라면 false
             // throw 키워드는 예외를 발생시켜 catch로 내가 임의적으로 보내는 것
-            if (!result.ok) {
+            if (!response.ok) {
                 throw new Error(result.message || "회원가입 중 오류가 발생했습니다.");
             }
 
