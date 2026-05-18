@@ -5,8 +5,9 @@ export type ThemeType = "light" | "dark";
 
 type ThemeState = {
     theme: ThemeType;
-    onChangeTheme: VoidFunction;
+    onChangeTheme: VoidFunction; // () => void
 };
+// zustand는 기본적으로 메모리에 저장, + a 로컬 스토리지 자동연동
 
 export const useThemeStore = create<ThemeState>()(
     // persist는 이렇게 마련한 store와 localStorage를 연결하는 미들웨어
