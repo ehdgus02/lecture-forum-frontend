@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
-import adminCategoryApi from "../../api/admin/adminCategoryApi.ts";
+
+import { FiRefreshCcw, FiTrash2 } from "react-icons/fi";
 import { type Category, CategoryStatus } from "../../types/category.type.ts";
+import adminCategoryApi from "../../api/admin/adminCategoryApi.ts";
 import {
     AdminContainer,
     AdminLoadingText,
@@ -15,7 +17,6 @@ import {
 import Button from "../../components/common/button/Button.tsx";
 import Card from "../../components/common/card/Card.tsx";
 import Badge from "../../components/common/badge/Badge.tsx";
-
 
 function AdminCategoryListPage() {
     const [categories, setCategories] = useState<Category[]>([]);
@@ -41,6 +42,22 @@ function AdminCategoryListPage() {
 
         loadCategories().then(() => {});
     }, []);
+
+    const handleToggleCategoryStatus = async (id: number) => {
+        // 백엔드에게 그 카테고리의 status를 바꿔줘 -> 함수 실행할 때 id를 받아야 함
+        try {
+            const result = await adminCategoryApi.toggleCategoryStatus(id);
+            alert(`카테고리가 성공적으로 ${result.status}로 변경되었습니다.`);
+
+            // 백엔드에게 목록을 요청하지 않고, 화면의 데이터만 교체해줄 것임
+            setCategories(prev =>
+                prev.map(item => (item.id === id ? { ...item, status: result.status } : item)),
+            );
+        } catch (error) {
+            console.log(error);
+            alert("카테고리 변경 중 오류가 발생되었습니다.");
+        }
+    };
 
     return (
         <AdminContainer>
@@ -95,7 +112,18 @@ function AdminCategoryListPage() {
                                                     : "비활성"}
                                             </Badge>
                                         </AdminTd>
-                                        <AdminTd>기능</AdminTd>
+                                        <AdminTd>
+                                            <Button
+                                                color={"primary"}
+                                                variant={"icon"}
+                                                onClick={() => handleToggleCategoryStatus(item.id)}>
+                                                {item.status === CategoryStatus.ACTIVE ? (
+                                                    <FiTrash2 size={18} />
+                                                ) : (
+                                                    <FiRefreshCcw size={18} />
+                                                )}
+                                            </Button>
+                                        </AdminTd>
                                     </tr>
                                 ))}
                             </tbody>
