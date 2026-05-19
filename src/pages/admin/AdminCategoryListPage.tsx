@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
-import type { Category } from "../../types/category.type.ts";
 import adminCategoryApi from "../../api/admin/adminCategoryApi.ts";
+import { type Category, CategoryStatus } from "../../types/category.type.ts";
 import {
     AdminContainer,
     AdminLoadingText,
@@ -14,6 +14,7 @@ import {
 } from "../../components/admin/admin.style.tsx";
 import Button from "../../components/common/button/Button.tsx";
 import Card from "../../components/common/card/Card.tsx";
+import Badge from "../../components/common/badge/Badge.tsx";
 
 
 function AdminCategoryListPage() {
@@ -82,7 +83,18 @@ function AdminCategoryListPage() {
                                     <tr key={item.id}>
                                         <AdminTd>{item.id}</AdminTd>
                                         <AdminTd>{item.name}</AdminTd>
-                                        <AdminTd>{item.status}</AdminTd>
+                                        <AdminTd>
+                                            <Badge
+                                                color={
+                                                    item.status === CategoryStatus.ACTIVE
+                                                        ? "success"
+                                                        : "secondary"
+                                                }>
+                                                {item.status === CategoryStatus.ACTIVE
+                                                    ? "활성"
+                                                    : "비활성"}
+                                            </Badge>
+                                        </AdminTd>
                                         <AdminTd>기능</AdminTd>
                                     </tr>
                                 ))}
