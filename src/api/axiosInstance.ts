@@ -4,9 +4,9 @@ import { useAuthStore } from "../stores/auth/authStore.ts";
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
 const api = axios.create({
-    baseURL: BASE_URL, // 통신을 진행할 상대의 기본 주소
-    timeout: 5000,      // 통신 요청을 했을 때 실패되었다고 판단하는 타임아웃 시간 (ms 밀리세컨드 단위. 5초)
-    withCredentials: true,  // CORS 요청을 허용할지 여부
+    baseURL: BASE_URL, // 통신을 진행할 상대의 기본 주소   (필수)
+    timeout: 5000, // 통신 요청을 했을 때 실패되었다고 판단하는 타임아웃 시간 (ms 밀리세컨드 단위. 5초)
+    withCredentials: true, // CORS 요청을 허용할지 여부
 });
 
 export default api;
@@ -24,7 +24,7 @@ api.interceptors.request.use(config => {
     // 이 interceptor는 이 axiosInstance를 사용하는 모든 요청에 발동되는 기능이고,
     // 사용자는 로그인이 되어져 있을 수도 있고, 없을 수도 있으므로
     // token이 있을 수도 있고 없을 수도 있음
-    // 그러니, token이 있을 때만 헤더에 추가해 줘야 하는구나
+    // 그러니,  token이 있을 때만 헤더에 추가해 줘야 하는구나~
 
     if (token) {
         // token이 있을 때에만 요청 헤더에 토큰 정보를 기재해서 보냄
@@ -35,18 +35,16 @@ api.interceptors.request.use(config => {
         config.headers.Authorization = `Bearer ${token}`;
 
         // 토큰 앞에 붙이는 prefix(접두사)를 붙이는 이유
-        // Bearer라고 붙으면, 그 뒤에는 JWT token 처럼  string으로 암호화한 값이 들어간다는 의미
+        // Bearer라고 붙으면, 그 뒤에는 JWT token 처럼 string으로 암호화한 값이 들어간다는 의미
         // Basic라고 붙으면, 그 뒤에는 Base64로 인코딩된 값이 들어간다는 의미
         // Digest라고 붙으면, MD5 형식으로 암호화한 값이 들어간다는 의미
     }
     return config;
 });
 
-
 // api.interceptors.response 에는 그렇게 요청한 응답이 도착했을 때
 // 응답을 실제 사용하기 전, 해야할 일에 대해서 api.interceptors.response.use() 에다가
 // 등록할 수 있음
-
 
 // axios : 라이브러리 O  (Typescript 지원, 별도 보조 라이브러리 X)
 // - 도착된 결과의 상태 코드를 읽기 때문에 2xx번 응답 제외 모두 에러
