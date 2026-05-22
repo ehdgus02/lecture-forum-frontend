@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
+import { FiEdit } from "react-icons/fi";
 import { Role, type User } from "../../types/user.type.ts";
 import adminUserApi from "../../api/admin/user/adminUserApi.ts";
 import {
+    AdminButtonGroup,
     AdminContainer,
     AdminLoadingText,
     AdminPageHeader,
@@ -95,7 +97,17 @@ function AdminUserListPage() {
                                         <AdminTd>
                                             {new Date(item.createdAt).toLocaleString()}
                                         </AdminTd>
-                                        <AdminTd>기능</AdminTd>
+                                        <AdminTd>
+                                            <AdminButtonGroup>
+                                                <Button
+                                                    variant={"icon"}
+                                                    color={"primary"}
+                                                    as={Link}
+                                                    to={`/admin/user/${item.id}`}>
+                                                    <FiEdit size={18} />
+                                                </Button>
+                                            </AdminButtonGroup>
+                                        </AdminTd>
                                     </tr>
                                 ))}
                             </tbody>
