@@ -6,6 +6,7 @@ import { useAuthStore } from "../stores/auth/authStore.ts";
 import { Role } from "../types/user.type.ts";
 import AdminCategoryCreatePage from "../pages/admin/category/create/AdminCategoryCreatePage.tsx";
 import AdminCategoryEditPage from "../pages/admin/category/edit/AdminCategoryEditPage.tsx";
+import AdminUserListPage from "../pages/user/AdminUserListPage.tsx";
 import SignInPage from "../pages/auth/signin/SignInPage.tsx";
 import SignUpPage from "../pages/auth/signup/SignUpPage.tsx";
 import AdminCategoryListPage from "../pages/admin/AdminCategoryListPage.tsx";
@@ -76,6 +77,10 @@ const router = createBrowserRouter([
                     { path: "create", element: <AdminCategoryCreatePage /> },
                     { path: "edit/:id", element: <AdminCategoryEditPage /> },
                 ],
+            },
+            {
+                path: "user",
+                children: [{ index: true, element: <AdminUserListPage /> }],
             },
         ],
     },
