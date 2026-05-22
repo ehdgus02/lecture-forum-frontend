@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 import { Role, type User } from "../../types/user.type.ts";
 import adminUserApi from "../../api/admin/user/adminUserApi.ts";
 import {
@@ -12,7 +13,6 @@ import {
     AdminTitle,
 } from "../../components/admin/admin.style.tsx";
 import Button from "../../components/common/button/Button.tsx";
-import { Link } from "react-router";
 import Card from "../../components/common/card/Card.tsx";
 import Badge from "../../components/common/badge/Badge.tsx";
 
