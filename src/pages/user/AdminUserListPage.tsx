@@ -88,7 +88,7 @@ function AdminUserListPage() {
                                             </Badge>
                                         </AdminTd>
                                         <AdminTd>
-                                            <Badge color={item.deletdAt ? "default" : "success"}>
+                                            <Badge color={item.deletedAt ? "default" : "success"}>
                                                 {item.deletedAt ? "탈퇴" : "정상"}
                                             </Badge>
                                         </AdminTd>
