@@ -1,10 +1,11 @@
 import axiosInstance from "../../axiosInstance.ts";
 import type { User } from "../../../types/user.type.ts";
+import type { PaginationResponseType } from "../../../types/common,type.ts";
 import type { AdminCreateUserInputType } from "../../../schemas/user/adminCreateUserSchema.ts";
 import type { AdminUpdateUserInputType } from "../../../schemas/user/adminUpdateUserSchema.ts";
 
-const fetchUserList = async (): Promise<User[]> => {
-    const response = await axiosInstance.get("/admin/user/list");
+const fetchUserList = async (page: number, size: number): Promise<PaginationResponseType<User>> => {
+    const response = await axiosInstance.get(`/admin/user/list?page=${page}&size=${size}`);
     return response.data.data;
 };
 
