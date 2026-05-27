@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import { FiEdit, FiTrash } from "react-icons/fi";
 import { Role, type User } from "../../types/user.type.ts";
 import adminUserApi from "../../api/admin/user/adminUserApi.ts";
@@ -22,8 +22,12 @@ function AdminUserListPage() {
     const [list, setList] = useState<User[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
+    const [searchParams, setSearchParams] = useSearchParams();
+    // const pageParams = searchParams.get("page");
+    // const page = pageParams ? Number(pageParams) : 1;
+    const page = Number(searchParams.get("page")) || 1; // 이것 자체가 state임
+
     const SIZE = 20;
-    const [page, setPage] = useState(1);
     const [total, setTotal] = useState(0);
     const totalPage = Math.ceil(total / SIZE); // Math.ceil() : 올림 메서드
 
@@ -53,6 +57,9 @@ function AdminUserListPage() {
         // 함수 안에 함수를 선언하고, 그걸 실행했었음
         // 함수 스코프에 의해 외부에서는 실행이 불가능함 => 외부에서도 저 기능을 이용해야 되는 상황이 되었으니
         // 그 함수를 밖으로 뺌
+
+        // 사용자의 스크롤을 이동시키는 명령
+        window.scrollTo({ top: 0, behavior: "smooth" });
 
         // eslint-disable-next-line react-hooks/set-state-in-effect
         loadUsers(page).then(() => {});
@@ -86,7 +93,10 @@ function AdminUserListPage() {
     };
 
     const handlePageChange = (page: number) => {
-        setPage(page);
+        // state의 값을 바로 바꾸는게 아니라,
+        // 쿼리스트링에 존재하는 page의 값을 변경해야 함
+        searchParams.set("page", page.toString()); // searchParams 내부의 page 프로퍼티 값을 변경
+        setSearchParams(searchParams); // 주소 변경
     };
 
     return (
