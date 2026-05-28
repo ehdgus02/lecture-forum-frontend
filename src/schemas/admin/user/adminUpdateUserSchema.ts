@@ -1,9 +1,9 @@
 import z from "zod";
-import { Gender, Role } from "../../types/user.type.ts";
+import { Gender, Role } from "../../../types/user.type.ts";
 
-export const adminCreateUserSchema = z.object({
+export const adminUpdateUserSchema = z.object({
     username: z.string().min(4),
-    password: z.string().min(6),
+    password: z.string().min(6).optional(),
     name: z.string().min(2),
     nickname: z.string().min(2).max(10),
     email: z.email(),
@@ -13,4 +13,4 @@ export const adminCreateUserSchema = z.object({
     role: z.enum(Role),
 });
 
-export type AdminCreateUserInputType = z.infer<typeof adminCreateUserSchema>;
+export type AdminUpdateUserInputType = z.infer<typeof adminUpdateUserSchema>;

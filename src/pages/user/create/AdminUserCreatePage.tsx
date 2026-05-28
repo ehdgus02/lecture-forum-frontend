@@ -5,7 +5,7 @@ import * as axios from "axios";
 import {
     type AdminCreateUserInputType,
     adminCreateUserSchema,
-} from "../../../schemas/user/adminCreateUserSchema.ts";
+} from "../../../schemas/admin/user/adminCreateUserSchema.ts";
 import adminUserApi from "../../../api/admin/user/adminUserApi.ts";
 import {
     AdminButtonGroup,

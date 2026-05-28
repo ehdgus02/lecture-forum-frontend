@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import {
     type AdminUpdateUserInputType,
     adminUpdateUserSchema,
-} from "../../../schemas/user/adminUpdateUserSchema.ts";
+} from "../../../schemas/admin/user/adminUpdateUserSchema.ts";
 import adminUserApi from "../../../api/admin/user/adminUserApi.ts";
 import {
     AdminButtonGroup,
