@@ -2,18 +2,19 @@ import { createBrowserRouter, redirect } from "react-router";
 import HomePage from "../pages/HomePage.tsx";
 import MainLayout from "../layouts/MainLayout.tsx";
 import AdminLayout from "../layouts/AdminLayout.tsx";
+import AdminCategoryListPage from "../pages/admin/category/AdminCategoryListPage.tsx";
 import { useAuthStore } from "../stores/auth/authStore.ts";
 import { Role } from "../types/user.type.ts";
 import AdminCategoryCreatePage from "../pages/admin/category/create/AdminCategoryCreatePage.tsx";
 import AdminCategoryEditPage from "../pages/admin/category/edit/AdminCategoryEditPage.tsx";
+import AdminUserCreatePage from "../pages/admin/user/create/AdminUserCreatePage.tsx";
+import AdminUserListPage from "../pages/admin/user/AdminUserListPage.tsx";
+import AdminUserUpdatePage from "../pages/admin/user/update/AdminUserUpdatePage.tsx";
 import PostListPage from "../pages/post/PostListPage.tsx";
 import PostCreatePage from "../pages/post/create/PostCreatePage.tsx";
+import PostDetailPage from "../pages/post/detail/PostDetailPage.tsx";
 import SignInPage from "../pages/auth/signin/SignInPage.tsx";
 import SignUpPage from "../pages/auth/signup/SignUpPage.tsx";
-import AdminCategoryListPage from "../pages/admin/category/AdminCategoryListPage.tsx";
-import AdminUserListPage from "../pages/admin/user/AdminUserListPage.tsx";
-import AdminUserCreatePage from "../pages/admin/user/create/AdminUserCreatePage.tsx";
-import AdminUserUpdatePage from "../pages/admin/user/update/AdminUserUpdatePage.tsx";
 
 // 회원의 권한에 따라 접근할 수 있는 주소를 판별하기 위해서
 // react-router 라이브러리에서는 "로더(loader)"라는 기능을 제공함
@@ -73,6 +74,7 @@ const router = createBrowserRouter([
             {
                 path: "post",
                 children: [
+                    { path: ":id", element: <PostDetailPage /> },
                     { path: "create/:categoryId", loader: userLoader, element: <PostCreatePage /> },
                 ],
             },
