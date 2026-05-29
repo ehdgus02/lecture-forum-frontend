@@ -1,25 +1,25 @@
 import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as axios from "axios";
 import {
     type AdminCreateUserInputType,
     adminCreateUserSchema,
-} from "../../../schemas/admin/user/adminCreateUserSchema.ts";
-import adminUserApi from "../../../api/admin/user/adminUserApi.ts";
+} from "../../../../schemas/admin/user/adminCreateUserSchema.ts";
 import {
     AdminButtonGroup,
     AdminContainer,
     AdminForm,
     AdminPageHeader,
     AdminTitle,
-} from "../../../components/admin/admin.style.tsx";
-import Card from "../../../components/common/card/Card.tsx";
-import InputGroup from "../../../components/common/input/InputGroup.tsx";
-import SelectGroup from "../../../components/common/select/SelectGroup.tsx";
-import { AuthRootErrorMessage } from "../../../components/auth/auth.style.tsx";
-import { Gender, Role } from "../../../types/user.type.ts";
-import Button from "../../../components/common/button/Button.tsx";
+} from "../../../../components/admin/admin.style.tsx";
+import Card from "../../../../components/common/card/Card.tsx";
+import InputGroup from "../../../../components/common/input/InputGroup.tsx";
+import SelectGroup from "../../../../components/common/select/SelectGroup.tsx";
+import { Gender, Role } from "../../../../types/user.type.ts";
+import Button from "../../../../components/common/button/Button.tsx";
+import adminUserApi from "../../../../api/admin/user/adminUserApi.ts";
+import * as axios from "axios";
+import { AuthRootErrorMessage } from "../../../../components/auth/auth.style.tsx";
 
 function AdminUserCreatePage() {
     const navigate = useNavigate();

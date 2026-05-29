@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+import adminCategoryApi from "../../../api/admin/adminCategoryApi.ts";
+import { type Category, CategoryStatus } from "../../../types/category.type.ts";
+import Button from "../../../components/common/button/Button.tsx";
 import { Link } from "react-router";
-import { FiEdit, FiRefreshCcw, FiTrash2 } from "react-icons/fi";
-import { type Category, CategoryStatus } from "../../types/category.type.ts";
-import adminCategoryApi from "../../api/admin/adminCategoryApi.ts";
+import Card from "../../../components/common/card/Card.tsx";
 import {
     AdminButtonGroup,
     AdminContainer,
@@ -13,10 +14,9 @@ import {
     AdminTd,
     AdminTh,
     AdminTitle,
-} from "../../components/admin/admin.style.tsx";
-import Button from "../../components/common/button/Button.tsx";
-import Card from "../../components/common/card/Card.tsx";
-import Badge from "../../components/common/badge/Badge.tsx";
+} from "../../../components/admin/admin.style.tsx";
+import Badge from "../../../components/common/badge/Badge.tsx";
+import { FiEdit, FiRefreshCcw, FiTrash2 } from "react-icons/fi";
 
 function AdminCategoryListPage() {
     const [categories, setCategories] = useState<Category[]>([]);

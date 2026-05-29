@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import { FiEdit, FiTrash } from "react-icons/fi";
-import { Role, type User } from "../../types/user.type.ts";
-import adminUserApi from "../../api/admin/user/adminUserApi.ts";
+import { Role, type User } from "../../../types/user.type.ts";
+import adminUserApi from "../../../api/admin/user/adminUserApi.ts";
 import {
     AdminButtonGroup,
     AdminContainer,
@@ -13,10 +13,11 @@ import {
     AdminTd,
     AdminTh,
     AdminTitle,
-} from "../../components/admin/admin.style.tsx";
-import Button from "../../components/common/button/Button.tsx";
-import Card from "../../components/common/card/Card.tsx";
-import Badge from "../../components/common/badge/Badge.tsx";
+} from "../../../components/admin/admin.style.tsx";
+import Button from "../../../components/common/button/Button.tsx";
+import Card from "../../../components/common/card/Card.tsx";
+import Badge from "../../../components/common/badge/Badge.tsx";
+import Pagination from "../../../components/common/pagination/Pagination.tsx";
 
 function AdminUserListPage() {
     const [list, setList] = useState<User[]>([]);
@@ -186,29 +187,11 @@ function AdminUserListPage() {
                 )}
 
                 {total > 0 && (
-                    <div
-                        style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            gap: "10px",
-                            marginTop: "20px",
-                        }}>
-                        <Button
-                            variant={"text"}
-                            color={"primary"}
-                            disabled={page === 1}
-                            onClick={() => handlePageChange(page - 1)}>
-                            이전
-                        </Button>
-                        <Button
-                            variant={"text"}
-                            color={"primary"}
-                            disabled={page === totalPage}
-                            onClick={() => handlePageChange(page + 1)}>
-                            다음
-                        </Button>
-                    </div>
+                    <Pagination
+                        currentPage={page}
+                        totalPage={totalPage}
+                        onPageChange={handlePageChange}
+                    />
                 )}
             </Card>
         </AdminContainer>
