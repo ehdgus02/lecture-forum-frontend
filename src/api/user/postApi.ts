@@ -1,7 +1,7 @@
 import axiosInstance from "../axiosInstance.ts";
+import type { PaginationResponseType } from "../../types/common.type.ts";
 import type { Post } from "../../types/post.type.ts";
 import type { CreatePostInputType } from "../../schemas/post/createPostSchema.ts";
-import type { PaginationResponseType } from "../../types/common,type.ts";
 
 const fetchPostListByCategory = async (
     categoryId: number,
@@ -22,8 +22,14 @@ const createPost = async (data: CreatePostInputType) => {
     return response.data.data;
 };
 
+const votePost = async (postId: number, option: number) => {
+    await axiosInstance.post(`/post/${postId}/vote`, { option });
+    // 백엔드가 처리 후 응답(Response)하는 내용이 필요 없으면 return 안해도 됨
+};
+
 export default {
     fetchPostListByCategory,
     createPost,
     fetchPostById,
+    votePost,
 };
