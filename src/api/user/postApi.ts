@@ -1,7 +1,7 @@
 import axiosInstance from "../axiosInstance.ts";
-import type { PaginationResponseType } from "../../types/common.type.ts";
 import type { Post } from "../../types/post.type.ts";
 import type { CreatePostInputType } from "../../schemas/post/createPostSchema.ts";
+import type { PaginationResponseType } from "../../types/common,type.ts";
 
 const fetchPostListByCategory = async (
     categoryId: number,
