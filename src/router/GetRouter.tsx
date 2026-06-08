@@ -13,6 +13,7 @@ import AdminUserUpdatePage from "../pages/admin/user/update/AdminUserUpdatePage.
 import PostListPage from "../pages/post/PostListPage.tsx";
 import PostCreatePage from "../pages/post/create/PostCreatePage.tsx";
 import PostDetailPage from "../pages/post/detail/PostDetailPage.tsx";
+import AdminNoticeList from "../pages/admin/notice/AdminNoticeList.tsx";
 import SignInPage from "../pages/auth/signin/SignInPage.tsx";
 import SignUpPage from "../pages/auth/signup/SignUpPage.tsx";
 
@@ -102,12 +103,18 @@ const router = createBrowserRouter([
                 ],
             },
             {
+                // /admin/user
                 path: "user",
                 children: [
                     { index: true, element: <AdminUserListPage /> },
                     { path: "create", element: <AdminUserCreatePage /> },
                     { path: ":id", element: <AdminUserUpdatePage /> },
                 ],
+            },
+            {
+                // /admin/notice
+                path: "notice",
+                children: [{ index: true, element: <AdminNoticeList /> }],
             },
         ],
     },

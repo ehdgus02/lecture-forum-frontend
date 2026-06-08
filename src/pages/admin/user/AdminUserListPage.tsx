@@ -1,8 +1,4 @@
 import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router";
-import { FiEdit, FiTrash } from "react-icons/fi";
-import { Role, type User } from "../../../types/user.type.ts";
-import adminUserApi from "../../../api/admin/user/adminUserApi.ts";
 import {
     AdminButtonGroup,
     AdminContainer,
@@ -17,42 +13,89 @@ import {
 import Button from "../../../components/common/button/Button.tsx";
 import Card from "../../../components/common/card/Card.tsx";
 import Badge from "../../../components/common/badge/Badge.tsx";
+import { Link, useSearchParams } from "react-router";
+import { Role, type User } from "../../../types/user.type.ts";
+import adminUserApi from "../../../api/admin/user/adminUserApi.ts";
+import { FiEdit, FiTrash } from "react-icons/fi";
 import Pagination from "../../../components/common/pagination/Pagination.tsx";
 
 function AdminUserListPage() {
+    // 선언문 - 왜 선언했는가?
+    // 앞으로 사용자 목록을 출력해주기 위해 백엔드에게 데이터 요청을 보낼테니
+    // 그 받아온 정보를 저장하고 화면에 출력을 해줄
+    // User[]가 저장될 수 있는 초기값 [], list이름을 붙인 state를 선언한다
     const [list, setList] = useState<User[]>([]);
+
+    // 얘는 백엔드와의 통신이 진행 중인지 여부를 나타내는
+    //    얘를 통해서 통신 진행 중에는 화면이 출력되지 않도록 제한하기 위해
+    // boolean이 저장될 수 있는 초기값 true를 가진, isLoading state를 선언한다
     const [isLoading, setIsLoading] = useState(true);
 
+    // 이 컴포넌트는 목록을 출력해줄 목적의 컴포넌트니까,
+    // 페이지네이션이 따라오게끔 설계 되어있고,
+    // 페이지네이션을 위해 page와 size가 쿼리스트링에 포함되므로
+    // useSearchParams()를 통해 쿼리 스트링을 불러와야 한다. > 쿼리스트링을 사용한다
     const [searchParams, setSearchParams] = useSearchParams();
-    // const pageParams = searchParams.get("page");
-    // const page = pageParams ? Number(pageParams) : 1;
+
+    // 페이지네이션을 하는데 지금 현재 사용자가 보고 있는 page 번호를 알아야
+    // 백엔드에게도 그에 맞춰 요청할 것이고, 페이지네이션에도 색깔을 바꿔 출력해줄 수 있을테니까
+    // 근데 최초 주소는 /admin/user 라는 주소라 쿼리스트링이 없음. 그러니까 초기값을 논리합으로 계산
+    // 쿼리스트링에 존재하는 page 항목의 값을 가져오거나, 없으면 1을 number타입으로 page 변수에 저장
     const page = Number(searchParams.get("page")) || 1; // 이것 자체가 state임
 
+    // page는 변경이 가능하도록 하기 위해 쿼리스트링에 포함시켰는데, SIZE는
+    // 개발자가 값을 안 바꿀 모양이다 => 쿼리스트링에 SIZE는 포함이 안되나보다
+    // SIZE라고 "대문자"로 쓴 변수명에 상수로서(바뀌지 않는 값) 20을 저장
     const SIZE = 20;
+
+    // 페이지네이션을 할 때 마지막 페이지를 계산하기 위한 목적으로 전체 총 공지사항 갯수가 필요하니
+    // 그것을 백엔드에게 받아서 저장할 목적으로
+    // 초기값 0의 number 타입 total이라는 state를 선언
     const [total, setTotal] = useState(0);
+
+    // 실제 페이지네이션에 출력되는 버튼은 "공지사항 갯수"로 출력하는게 아니라
+    // 총 "페이지 매 수"로 출력하니까 여러군데서 이에 대해 사용될거 같으니 한번에 계산을 시키고
+    // totalPage만 불러다가 쓰겠구나
+    // total 값을 SIZE로 나누어, 올림한 값을 저장하는 totalPage 변수 선언
     const totalPage = Math.ceil(total / SIZE); // Math.ceil() : 올림 메서드
 
+    // 사용자 목록을 불러오는 기능을 함수로 작성
+    // 이 함수는 page: number를 매개변수로 갖는다. 리턴은 없음. => 목록만 불러오고 끝나는 함수구나.
     const loadUsers = async (page: number) => {
         try {
+            // 아. API에 대해 관리가 관리자 측 기능은 admin 접두사로 시작하는 것 같고
+            // 이 기능은 관리자 아니면 사용 못 하겠구나
+            // adminUserApi라고 작성되어져 있는 파일에 fetchUserList라는 함수가 실행 되는구나
+            // 매개변수로 page와 SIZE를 받아서, 사용자 목록을 백엔드에게 받아오고
+            // 그 결과를 data 변수에 저장.
+            // data에 마우스를 올려서 팝업을 보니, PaginationResponseType<User> 타입이 저장되는구나
+            // data = {
+            //          page: number,
+            //          size: number,
+            //          total: number,
+            //          list: User[]
+            // }
             const data = await adminUserApi.fetchUserList(page, SIZE);
+            // 우리가 만든 list라고 하는 state에 data.list를 저장
             setList(data.list);
+            // 우리가 만든 total이라고 하는 state에 data.total을 저장
             setTotal(data.total);
         } catch (error) {
+            // 위에 존재하는 try 중 실행 실패(에러, 오류)가 발생되면 실행되는 내용으로서
+            // 콘솔 로그로 error 출력하고, 사용자 경고창을 띄우고 끝나는구나
+            // 별 다른 에러 처리는 특별히 없네.
             console.log(error);
             alert("사용자 목록을 불러오는데 실패했습니다.");
         } finally {
+            // isLoading을 가지고서 화면을 출력해줄 때 isLoading이 false에 실 결과가 나오겠구나
+            // try가 끝나든, catch가 끝나든. 어떠한 것이 끝나든 마지막에 isLoading state가 false바뀜
             setIsLoading(false);
         }
     };
 
-    // useEffect는 초기렌더링이 끝난 즉시 1번 무조건 실행
-    // 이 화면에서는 page가 바뀔 때 목록 갱신 함수가 실행되어야 함 => useEffect의 의존성이 하는 일
-    //
-    // useEffect는 useEffect(함수, 의존성배열);
-    //
-    // useEffect(() => {}, []);
-    // 의존성 배열에 넣은 변수나 함수나 메서드나 state가 바뀔 때 재실행됨
-
+    // 리액트에서는 백엔드에서 데이터를 받아오기 위해,
+    // 그 받아오는 함수에 대한 실행을 useEffect 안에 담아줘야 함
+    // useEffect 안에서 백엔드 데이터를 받아 오겠구나
     useEffect(() => {
         // 이 함수는, 백엔드에게 내용을 받아서 state에 저장 => 화면 출력을 해주는 함수를 useEffect 매개변수 안에 작성해서
         // 함수 안에 함수를 선언하고, 그걸 실행했었음
@@ -64,8 +107,13 @@ function AdminUserListPage() {
 
         // eslint-disable-next-line react-hooks/set-state-in-effect
         loadUsers(page).then(() => {});
+
+        // page state의 값이 바뀔 때마다 게시글 목록을 해당 page번호에 맞추어 다시 백엔드에게 받아오고
+        // 화면 위치를 맨 위로 옮기겠구나
+        // page state의 값이 바뀔 때마다 useEffect 재발동 되겠구나
     }, [page]);
 
+    // handler (핸들러) : 상호작용을 통해 무언가 동작을 실행시키는 함수
     const handleDelete = async (id: number) => {
         // confirm은 사용자에게 경고창을 통해 확인을 받는 메서드. true/false 가 반환됨
         // 그렇게 취소를 하면 더 이상 함수 진행을 안함
@@ -93,9 +141,8 @@ function AdminUserListPage() {
         }
     };
 
+    // 페이지 번호(매개변수)를 통해 page의 값을 변화시키는 핸들러
     const handlePageChange = (page: number) => {
-        // state의 값을 바로 바꾸는게 아니라,
-        // 쿼리스트링에 존재하는 page의 값을 변경해야 함
         searchParams.set("page", page.toString()); // searchParams 내부의 page 프로퍼티 값을 변경
         setSearchParams(searchParams); // 주소 변경
     };
