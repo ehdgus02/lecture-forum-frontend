@@ -14,6 +14,7 @@ import PostListPage from "../pages/post/PostListPage.tsx";
 import PostCreatePage from "../pages/post/create/PostCreatePage.tsx";
 import PostDetailPage from "../pages/post/detail/PostDetailPage.tsx";
 import AdminNoticeList from "../pages/admin/notice/AdminNoticeList.tsx";
+import AdminCreateNoticePage from "../pages/admin/notice/create/AdminCreateNoticePage.tsx";
 import SignInPage from "../pages/auth/signin/SignInPage.tsx";
 import SignUpPage from "../pages/auth/signup/SignUpPage.tsx";
 
@@ -114,7 +115,10 @@ const router = createBrowserRouter([
             {
                 // /admin/notice
                 path: "notice",
-                children: [{ index: true, element: <AdminNoticeList /> }],
+                children: [
+                    { index: true, element: <AdminNoticeList /> },
+                    { path: "create", element: <AdminCreateNoticePage /> },
+                ],
             },
         ],
     },
