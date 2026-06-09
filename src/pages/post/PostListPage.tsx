@@ -25,6 +25,7 @@ function PostListPage() {
     // 그리고 페이지네이션 할 수 있는 버튼들도 하단에 추가해야되는구나
 
     const { isLoggedIn } = useAuthStore();
+
     const { categoryId } = useParams<{ categoryId: string }>();
     const [searchParams, setSearchParams] = useSearchParams();
     const page = Number(searchParams.get("page")) || 1;
