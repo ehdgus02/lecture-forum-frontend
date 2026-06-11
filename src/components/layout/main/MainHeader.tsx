@@ -15,9 +15,9 @@ const HeaderContainer = styled.header`
     position: sticky;
     top: 0;
     z-index: 50;
-    background-color: ${props => props.theme.colors.background.paper};
+    background-color: ${props => props.theme.color.background.paper};
     width: 100%;
-    border-bottom: 1px solid ${props => props.theme.colors.divider};
+    border-bottom: 1px solid ${props => props.theme.color.divider};
 `;
 
 const HeaderInner = styled.div`
@@ -36,7 +36,7 @@ const Logo = styled(Link)`
     gap: 8px;
     font-size: 24px;
     font-weight: 800;
-    color: ${props => props.theme.colors.primary};
+    color: ${props => props.theme.color.primary};
     margin-right: 60px;
 `;
 
@@ -50,11 +50,11 @@ const Nav = styled.nav`
 const NavItem = styled(Link)`
     font-size: 16px;
     font-weight: 600;
-    color: ${props => props.theme.colors.text.default};
+    color: ${props => props.theme.color.text.default};
     transition: all 0.3s;
 
     &:hover {
-        color: ${props => props.theme.colors.primary};
+        color: ${props => props.theme.color.primary};
     }
 `;
 
@@ -108,7 +108,7 @@ function MainHeader() {
                     </Button>
                     {isLoggedIn ? (
                         <>
-                            <Button color={"primary"} variant={"icon"} as={Link} to={"/profile"}>
+                            <Button color={"primary"} variant={"icon"} as={Link} to={"/my"}>
                                 <FiUser size={20} />
                             </Button>
                             {user?.role === Role.ADMIN && (

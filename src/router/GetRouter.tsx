@@ -17,6 +17,12 @@ import AdminNoticeList from "../pages/admin/notice/AdminNoticeList.tsx";
 import AdminCreateNoticePage from "../pages/admin/notice/create/AdminCreateNoticePage.tsx";
 import AdminNoticeDetailPage from "../pages/admin/notice/detail/AdminNoticeDetailPage.tsx";
 import AdminNoticeUpdatePage from "../pages/admin/notice/update/AdminNoticeUpdatePage.tsx";
+import NoticeListPage from "../pages/notice/NoticeListPage.tsx";
+import NoticeDetailPage from "../pages/notice/detail/NoticeDetailPage.tsx";
+import AdminInquiryListPage from "../pages/admin/inquiry/AdminInquiryListPage.tsx";
+import MyLayout from "../layouts/MyLayout.tsx";
+import MyInfoPage from "../pages/my/info/MyInfoPage.tsx";
+import MyInquiryListPage from "../pages/my/inquiry/MyInquiryListPage.tsx";
 import SignInPage from "../pages/auth/signin/SignInPage.tsx";
 import SignUpPage from "../pages/auth/signup/SignUpPage.tsx";
 
@@ -90,6 +96,21 @@ const router = createBrowserRouter([
                     { path: "signup", element: <SignUpPage /> },
                 ],
             },
+            {
+                path: "notice",
+                children: [
+                    { index: true, element: <NoticeListPage /> },
+                    { path: ":id", element: <NoticeDetailPage /> },
+                ],
+            },
+            {
+                path: "my",
+                element: <MyLayout />,
+                children: [
+                    { index: true, element: <MyInfoPage /> },
+                    { path: "inquiry", element: <MyInquiryListPage /> },
+                ],
+            },
         ],
     },
     {
@@ -123,6 +144,10 @@ const router = createBrowserRouter([
                     { path: ":id", element: <AdminNoticeDetailPage /> },
                     { path: "update/:id", element: <AdminNoticeUpdatePage /> },
                 ],
+            },
+            {
+                path: "inquiry",
+                children: [{ index: true, element: <AdminInquiryListPage /> }],
             },
         ],
     },
