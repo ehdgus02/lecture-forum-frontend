@@ -61,8 +61,8 @@ export default AdminAside;
 
 const AdminSidebar = styled.aside`
     width: 260px;
-    background-color: ${props => props.theme.colors.background.paper};
-    border-right: 1px solid ${props => props.theme.colors.divider};
+    background-color: ${props => props.theme.color.background.paper};
+    border-right: 1px solid ${props => props.theme.color.divider};
     display: flex;
     flex-direction: column;
 `;
@@ -74,8 +74,8 @@ const SidebarHeader = styled(Link)`
     padding: 0 24px;
     font-size: 20px;
     font-weight: 800;
-    color: ${props => props.theme.colors.primary};
-    border-bottom: 1px solid ${props => props.theme.colors.divider};
+    color: ${props => props.theme.color.primary};
+    border-bottom: 1px solid ${props => props.theme.color.divider};
 `;
 
 const SidebarMenu = styled.nav`
@@ -93,15 +93,15 @@ const MenuItem = styled(Link)<{ $isActive: boolean }>`
     font-size: 15px;
     font-weight: 500;
     color: ${props =>
-        props.$isActive ? props.theme.colors.primary : props.theme.colors.text.default};
+        props.$isActive ? props.theme.color.primary : props.theme.color.text.default};
     background-color: ${props =>
-        props.$isActive ? `${props.theme.colors.primary}15` : "transparent"};
+        props.$isActive ? `${props.theme.color.primary}15` : "transparent"};
     border-left: 4px solid
-        ${props => (props.$isActive ? props.theme.colors.primary : "transparent")};
+        ${props => (props.$isActive ? props.theme.color.primary : "transparent")};
     transition: all 0.2s;
 
     &:hover {
-        background-color: ${props => props.theme.colors.background.default};
-        color: ${props => props.theme.colors.primary};
+        background-color: ${props => props.theme.color.background.default};
+        color: ${props => props.theme.color.primary};
     }
 `;
