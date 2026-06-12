@@ -26,6 +26,7 @@ import MyInquiryListPage from "../pages/my/inquiry/MyInquiryListPage.tsx";
 import MyInquiryCreatePage from "../pages/my/inquiry/create/MyInquiryCreatePage.tsx";
 import MyInquiryDetailPage from "../pages/my/inquiry/detail/MyInquiryDetailPage.tsx";
 import MyInquiryEditPage from "../pages/my/inquiry/edit/MyInquiryEditPage.tsx";
+import AdminInquiryDetailPage from "../pages/admin/inquiry/detail/AdminInquiryDetailPage.tsx";
 import SignInPage from "../pages/auth/signin/SignInPage.tsx";
 import SignUpPage from "../pages/auth/signup/SignUpPage.tsx";
 
@@ -158,7 +159,10 @@ const router = createBrowserRouter([
             },
             {
                 path: "inquiry",
-                children: [{ index: true, element: <AdminInquiryListPage /> }],
+                children: [
+                    { index: true, element: <AdminInquiryListPage /> },
+                    { path: ":id", element: <AdminInquiryDetailPage /> },
+                ],
             },
         ],
     },
