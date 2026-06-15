@@ -1,5 +1,7 @@
 import { createBrowserRouter, redirect } from "react-router";
 import HomePage from "../pages/HomePage.tsx";
+import SignInPage from "../pages/auth/signin/signInPage.tsx";
+import SignUpPage from "../pages/auth/signup/signUpPage.tsx";
 import MainLayout from "../layouts/MainLayout.tsx";
 import AdminLayout from "../layouts/AdminLayout.tsx";
 import AdminCategoryListPage from "../pages/admin/category/AdminCategoryListPage.tsx";
@@ -27,8 +29,7 @@ import MyInquiryCreatePage from "../pages/my/inquiry/create/MyInquiryCreatePage.
 import MyInquiryDetailPage from "../pages/my/inquiry/detail/MyInquiryDetailPage.tsx";
 import MyInquiryEditPage from "../pages/my/inquiry/edit/MyInquiryEditPage.tsx";
 import AdminInquiryDetailPage from "../pages/admin/inquiry/detail/AdminInquiryDetailPage.tsx";
-import SignInPage from "../pages/auth/signin/SignInPage.tsx";
-import SignUpPage from "../pages/auth/signup/SignUpPage.tsx";
+import MyPasswordPage from "../pages/my/password/MyPasswordPage.tsx";
 
 // 회원의 권한에 따라 접근할 수 있는 주소를 판별하기 위해서
 // react-router 라이브러리에서는 "로더(loader)"라는 기능을 제공함
@@ -112,6 +113,7 @@ const router = createBrowserRouter([
                 element: <MyLayout />,
                 children: [
                     { index: true, element: <MyInfoPage /> },
+                    { path: "password", element: <MyPasswordPage /> },
                     {
                         path: "inquiry",
                         children: [
