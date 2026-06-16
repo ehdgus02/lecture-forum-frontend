@@ -60,6 +60,7 @@ function MyPasswordPage() {
                     <InputGroup
                         label={"현재 비밀번호"}
                         id={"prevPassword"}
+                        type={"password"}
                         placeholder={"현재 비밀번호를 입력하세요"}
                         errorMessage={errors.prevPassword?.message}
                         registerObj={register("prevPassword")}
@@ -68,6 +69,7 @@ function MyPasswordPage() {
                     <InputGroup
                         label={"변경할 비밀번호"}
                         id={"password"}
+                        type={"password"}
                         placeholder={"변경할 비밀번호를 입력하세요"}
                         errorMessage={errors.password?.message}
                         registerObj={register("password")}
@@ -76,6 +78,7 @@ function MyPasswordPage() {
                     <InputGroup
                         label={"변경할 비밀번호 확인"}
                         id={"confirmPassword"}
+                        type={"password"}
                         placeholder={"변경할 비밀번호를 다시 한 번 입력해주세요"}
                         errorMessage={errors.confirmPassword?.message}
                         registerObj={register("confirmPassword")}
